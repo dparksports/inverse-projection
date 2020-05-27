@@ -43,13 +43,10 @@ PointCloud 1 | PointCloud 2
 ![cell 1](https://github.com/dparksports/inverse-projection/blob/master/pointcloud.png) | ![cell 2](https://github.com/dparksports/inverse-projection/blob/master/cloudpoint2.png)
 
 
-Orthogonal in 70m
------------- 
-![cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal2.png)
+Orthogonal 70m | Orthogonal No Filter
+------------ | -------------
+![cell 1](https://github.com/dparksports/inverse-projection/blob/master/orthogonal2.png) | ![cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal-no-filter.png)
 
-Orthogonal - No Filter
------------- 
-![cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal-no-filter.png)
 
 Simulator 
 ------------ 

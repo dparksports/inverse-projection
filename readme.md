@@ -2,12 +2,14 @@
 
 ## With FOV Horizontal and Vertical
 
+# Camera Spec
 Given: 
 - Primesense Carmine 1.09 Depth Camera
 - VGA : 640 x 480
 - Horizontal FOV: 57.5 degrees
 - Vertical FOV: 45 degrees
 
+# Focal Length
 Focal_Length_x = (width / 2) / (tan (a_x / 2.0)  // a_x = FOV_H
 Focal_length_y = (height / 2) / (tan (a_y / 2.0)  // a_y = FOV_V
 

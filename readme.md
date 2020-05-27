@@ -1,7 +1,36 @@
 ### inverse projection
 
-Compute intrinsic K matrix from FOV
+## With FOV Horizontal and Vertical
 
+Given: 
+- Primesense Carmine 1.09 Depth Camera
+- VGA : 640 x 480
+- Horizontal FOV: 57.5 degrees
+- Vertical FOV: 45 degrees
+
+Focal_Length_x = (width / 2) / (tan (a_x / 2.0)  // a_x = FOV_H
+Focal_length_y = (height / 2) / (tan (a_y / 2.0)  // a_y = FOV_V
+
+[fx, s, a_x]
+[0, fy, a_y]
+[0, 0, 1   ]
+
+eg) 
+[583 0 320]
+[0 579 240]
+[0 0   1  ]
+
+
+## With a single FOV value:
+
+hFov = fov / 360 * 2 * PI
+fx = w / (2 * tan (hFov / 2))
+
+vFov = 2 * arctan( tan(hFov / 2) * (h/w) )
+fy = h / (2 * tan (vFov / 2))
+
+
+ 
 
 PointCloud 1 | PointCloud 2
 ------------ | -------------

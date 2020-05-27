@@ -8,4 +8,4 @@ PointCloud 1 | PointCloud 2
 
 Orthogonal 
 ------------ 
-[cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal2.png)
+![cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal2.png)

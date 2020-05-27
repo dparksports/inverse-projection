@@ -67,6 +67,10 @@ camera_coordinates = camera_coordinates[:, np.where(camera_coordinates[2] < 150)
 
 pointcloud_in_camera_coordinates = o3d.geometry.PointCloud()
 pointcloud_in_camera_coordinates.points = o3d.utility.Vector3dVector(camera_coordinates.T[:, :3])
+pointcloud_in_camera_coordinates.transform([[1,0,0,0],
+                                            [0,-1,0,0],
+                                            [0,0,-1,0],
+                                            [0,0,0,1]])
 o3d.visualization.draw_geometries([pointcloud_in_camera_coordinates])
 
 orthogonal_view(camera_coordinates)

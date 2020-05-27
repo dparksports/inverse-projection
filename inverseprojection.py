@@ -72,6 +72,26 @@ print(b)
 c = a[:, np.where(a[1] < 4)[0]]
 print(c)
 
+a = np.arange(10)
+print(a)
+a = np.where(a < 5, a, 10*a)
+print(a)
+
+a = np.where([[True, False], [True, True]],
+         [[1, 2], [3, 4]],
+         [[9, 8], [7, 6]])
+print(a)
+
+x, y = np.ogrid[:3, :4]
+print(x)
+print(y)
+print(np.where(x < y, x + 1000, 100 + y)) # both x and 10+y are broadcast
+
+a = np.array([[0, 1, 2],
+              [0, 2, 4],
+              [0, 3, 6]])
+print(a)
+print(np.where(a < 4, a, -1))  # -1 is broadcast
 
 rgb = cv2.cvtColor(cv2.imread('rgb.png'), cv2.COLOR_BGR2RGB)
 depth = cv2.imread('depth.exr', cv2.IMREAD_ANYDEPTH)
@@ -103,8 +123,7 @@ print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, point
 points_in_camera_coordinates = K_inverse[:3, :3] @ pixels_in_image_coordinates * depth.flatten()
 print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
 
-print("np.where(points_in_camera_coordinates[2] < 150)[0]:", np.where(points_in_camera_coordinates[2] < 150)[0].shape, np.where(points_in_camera_coordinates[2] < 1000)[0])
-
+print("np.where(points_in_camera_coordinates[2] < 150)[0]:", np.where(points_in_camera_coordinates[2] < 150)[0].shape, np.where(points_in_camera_coordinates[2] < 150)[0])
 
 points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 1000)[0]]
 print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)

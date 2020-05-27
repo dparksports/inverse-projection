@@ -30,11 +30,11 @@ Given:
 
 ## With a single FOV value:
 
-hFov = fov / 360 * 2 * PI
-fx = w / (2 * tan (hFov / 2))
+- hFov = fov / 360 * 2 * PI
+- fx = w / (2 * tan (hFov / 2))
 
-vFov = 2 * arctan( tan(hFov / 2) * (h/w) )
-fy = h / (2 * tan (vFov / 2))
+- vFov = 2 * arctan( tan(hFov / 2) * (h/w) )
+- fy = h / (2 * tan (vFov / 2))
 
 ## Results
 

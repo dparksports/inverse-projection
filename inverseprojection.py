@@ -59,14 +59,55 @@ def intrinsic_from_fov(h, w, fov=90):
                      [0, 0, 1]])
 
 
+a = np.arange(9).reshape((3, 3))
+print(a)
+#print(np.where(a < 4, -1, 100))
+
+d = a[:3, np.where(a[0] < 4)]
+print(d)
+
+b = a[:, np.where(a[1] < 4)]
+print(b)
+
+c = a[:, np.where(a[1] < 4)[0]]
+print(c)
+
+
 rgb = cv2.cvtColor(cv2.imread('rgb.png'), cv2.COLOR_BGR2RGB)
 depth = cv2.imread('depth.exr', cv2.IMREAD_ANYDEPTH)
+
+print("rgb:", rgb.shape, rgb)
+print("depth:", depth.shape, depth)
+
 h, w, _ = rgb.shape
 K = intrinsic_from_fov(h, w, 90)
 K_inverse = np.linalg.inv(K)
+
+print("K:", K.shape, K)
+print("K_inverse:", K_inverse.shape, K_inverse)
+
 pixels_in_image_coordinates = homogenous_image_coordinates(h, w)
+
+print("pixels_in_image_coordinates:", pixels_in_image_coordinates.shape, pixels_in_image_coordinates)
+print("depth.flatten():", depth.flatten().shape, depth.flatten())
+
+# @ - matrix multiplication
+points_in_camera_coordinates = K_inverse[:, :] @ pixels_in_image_coordinates
+print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
+
+# * - elementwise multiplication
+points_in_camera_coordinates = points_in_camera_coordinates * depth.flatten()
+print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
+
+# @ - matrix multiplication
 points_in_camera_coordinates = K_inverse[:3, :3] @ pixels_in_image_coordinates * depth.flatten()
-points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 150)[0]]
+print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
+
+print("np.where(points_in_camera_coordinates[2] < 150)[0]:", np.where(points_in_camera_coordinates[2] < 150)[0].shape, np.where(points_in_camera_coordinates[2] < 1000)[0])
+
+
+points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 1000)[0]]
+print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
 
 pointcloud_in_camera_coordinates = o3d.geometry.PointCloud()
 pointcloud_in_camera_coordinates.points = o3d.utility.Vector3dVector(points_in_camera_coordinates.T[:, :3])

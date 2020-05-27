@@ -13,8 +13,11 @@ def orthogonal_view(points_in_camera_coordinates):
     y = -1 * y
 
     # In an ego vehicle, the observing camera is placed 1 meter of the roof top.
-    points_in_70meters = np.where((z < longitunal_max) & (y > -1.2))
+    points_in_70meters = np.where((y > -1.2))
+#    points_in_70meters = np.where(z < longitunal_max)
+#    points_in_70meters = np.where((z < longitunal_max) & (y > -1.2))
     z_based_view = points_in_camera_coordinates[:3, points_in_70meters]
+#    z_based_view = points_in_camera_coordinates[:3]
 
     # color points by radial distance
     distances = np.sqrt(np.sum(z_based_view[0:2:2, :] ** 2, axis=0))

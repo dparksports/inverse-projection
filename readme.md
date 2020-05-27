@@ -43,7 +43,7 @@ PointCloud 1 | PointCloud 2
 ![cell 1](https://github.com/dparksports/inverse-projection/blob/master/pointcloud.png) | ![cell 2](https://github.com/dparksports/inverse-projection/blob/master/cloudpoint2.png)
 
 
-Orthogonal 70m | Orthogonal No Filter
+Orthogonal 1m ego top | Orthogonal 70m z
 ------------ | -------------
 ![cell 1](https://github.com/dparksports/inverse-projection/blob/master/orthogonal2.png) | ![cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal-no-filter.png)
 

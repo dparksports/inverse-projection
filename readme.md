@@ -29,8 +29,7 @@ fx = w / (2 * tan (hFov / 2))
 vFov = 2 * arctan( tan(hFov / 2) * (h/w) )
 fy = h / (2 * tan (vFov / 2))
 
-
- 
+## Results
 
 PointCloud 1 | PointCloud 2
 ------------ | -------------

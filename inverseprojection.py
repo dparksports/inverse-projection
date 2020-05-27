@@ -4,17 +4,17 @@ import matplotlib.pyplot as plt
 import scipy.linalg as lin
 import numpy as np
 
-def orthogonal_view(camera_points):
+def orthogonal_view(points_in_camera_coordinates):
     longitunal_max = 70
     x_window = (-50, 50)
     y_window = (-3, longitunal_max)
 
-    x, y, z = camera_points
+    x, y, z = points_in_camera_coordinates
     y = -1 * y
 
-    # In an ego vehicle, the observing camera is placed 1 meter top of the roof top.
-    points_with_70meters = np.where((z < longitunal_max) & (y > -1.2))
-    z_based_view = camera_points[:3, points_with_70meters]
+    # In an ego vehicle, the observing camera is placed 1 meter of the roof top.
+    points_in_70meters = np.where((z < longitunal_max) & (y > -1.2))
+    z_based_view = points_in_camera_coordinates[:3, points_in_70meters]
 
     # color points by radial distance
     distances = np.sqrt(np.sum(z_based_view[0:2:2, :] ** 2, axis=0))
@@ -61,19 +61,19 @@ depth = cv2.imread('depth.exr', cv2.IMREAD_ANYDEPTH)
 h, w, _ = rgb.shape
 K = intrinsic_from_fov(h, w, 90)
 K_inverse = np.linalg.inv(K)
-image_coordinates = homogenous_image_coordinates(h, w)
-camera_coordinates = K_inverse[:3, :3] @ image_coordinates * depth.flatten()
-camera_coordinates = camera_coordinates[:, np.where(camera_coordinates[2] < 150)[0]]
+pixels_in_image_coordinates = homogenous_image_coordinates(h, w)
+points_in_camera_coordinates = K_inverse[:3, :3] @ pixels_in_image_coordinates * depth.flatten()
+points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 150)[0]]
 
 pointcloud_in_camera_coordinates = o3d.geometry.PointCloud()
-pointcloud_in_camera_coordinates.points = o3d.utility.Vector3dVector(camera_coordinates.T[:, :3])
+pointcloud_in_camera_coordinates.points = o3d.utility.Vector3dVector(points_in_camera_coordinates.T[:, :3])
 pointcloud_in_camera_coordinates.transform([[1,0,0,0],
                                             [0,-1,0,0],
                                             [0,0,-1,0],
                                             [0,0,0,1]])
 o3d.visualization.draw_geometries([pointcloud_in_camera_coordinates])
 
-orthogonal_view(camera_coordinates)
+orthogonal_view(points_in_camera_coordinates)
 
 
 

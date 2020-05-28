@@ -33,7 +33,6 @@ def orthogonal_view(points_in_camera_coordinates):
     plt.gca().set_aspect('equal')
     plt.show()
 
-
 def homogenous_image_coordinates(h, w):
     """
     image coordinates in homogenous coordinate
@@ -92,6 +91,19 @@ a = np.array([[0, 1, 2],
               [0, 3, 6]])
 print(a)
 print(np.where(a < 4, a, -1))  # -1 is broadcast
+
+a = np.arange(30).reshape((3, 10))
+b = np.arange(10)
+c = a * b  # element wise multiplication or dot
+print(a)
+print(b)
+print(c)
+
+m = np.arange(9).reshape((3,3))
+d = m @ a  # matrix multiplication
+print(m)
+print(d)
+
 
 rgb = cv2.cvtColor(cv2.imread('rgb.png'), cv2.COLOR_BGR2RGB)
 depth = cv2.imread('depth.exr', cv2.IMREAD_ANYDEPTH)

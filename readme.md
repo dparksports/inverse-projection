@@ -48,7 +48,7 @@ Orthogonal (> -1m ego) | Orthogonal (70m z)
 ![cell 1](https://github.com/dparksports/inverse-projection/blob/master/orthogonal2.png) | ![cell 2](https://github.com/dparksports/inverse-projection/blob/master/orthogonal-no-filter.png)
 
 
-Simulator 
+CARLA 
 ------------ 
 ![cell 2](https://github.com/dparksports/inverse-projection/blob/master/rgb.png)
 

@@ -132,7 +132,7 @@ c = np.asarray(depth)
 print("c.shape:", c.shape)
 c1 = c[0].reshape(32,32)
 np.set_printoptions(precision=0, suppress=True)
-np. set_printoptions(threshold=np. inf)
+#np. set_printoptions(threshold=np. inf)
 print("c1.shape:", c1.shape)
 print("c1:", c1)
 
@@ -153,8 +153,34 @@ print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, point
 
 print("np.where(points_in_camera_coordinates[2] < 150)[0]:", np.where(points_in_camera_coordinates[2] < 150)[0].shape, np.where(points_in_camera_coordinates[2] < 150)[0])
 
-points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 1000)[0]]
+points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 150)[0]]
 print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
+
+# inverse projection without linear algebra
+points_in_camera_coordinates = np.zeros((h * w, 3))
+print("points_in_camera_coordinates.shape:", points_in_camera_coordinates.shape)
+print("points_in_camera_coordinates:", points_in_camera_coordinates)
+
+u0 = K[0,2]
+v0 = K[1,2]
+focal_length_x = K[0,0]
+focal_length_y = K[1,1]
+
+i = 0
+for v in range(h):
+    for u in range(w):
+        z = depth[v, u]
+        x = (u - u0) * z / focal_length_x
+        y = (v - v0) * z / focal_length_y
+        points_in_camera_coordinates[i] = (x, y, z)
+        i += 1
+points_in_camera_coordinates = points_in_camera_coordinates.T
+print("points_in_camera_coordinates.shape:", points_in_camera_coordinates.shape)
+print("points_in_camera_coordinates:", points_in_camera_coordinates)
+
+points_in_camera_coordinates = points_in_camera_coordinates[:, np.where(points_in_camera_coordinates[2] < 150)[0]]
+print("points_in_camera_coordinates:", points_in_camera_coordinates.shape, points_in_camera_coordinates)
+
 
 pointcloud_in_camera_coordinates = o3d.geometry.PointCloud()
 pointcloud_in_camera_coordinates.points = o3d.utility.Vector3dVector(points_in_camera_coordinates.T[:, :3])

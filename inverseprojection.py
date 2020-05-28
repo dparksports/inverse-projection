@@ -104,7 +104,6 @@ d = m @ a  # matrix multiplication
 print(m)
 print(d)
 
-
 rgb = cv2.cvtColor(cv2.imread('rgb.png'), cv2.COLOR_BGR2RGB)
 depth = cv2.imread('depth.exr', cv2.IMREAD_ANYDEPTH)
 
@@ -119,6 +118,23 @@ print("K:", K.shape, K)
 print("K_inverse:", K_inverse.shape, K_inverse)
 
 pixels_in_image_coordinates = homogenous_image_coordinates(h, w)
+c = pixels_in_image_coordinates[1]
+c = c.reshape(768, 1024)
+print("c:", c)
+
+c = np.asarray(rgb)
+print("c.shape:", c.shape)
+c1 = c[:,:,0].reshape(768 * 1024)
+print("c1.shape:", c1.shape)
+print("c1:", c1)
+
+c = np.asarray(depth)
+print("c.shape:", c.shape)
+c1 = c[0].reshape(32,32)
+np.set_printoptions(precision=0, suppress=True)
+np. set_printoptions(threshold=np. inf)
+print("c1.shape:", c1.shape)
+print("c1:", c1)
 
 print("pixels_in_image_coordinates:", pixels_in_image_coordinates.shape, pixels_in_image_coordinates)
 print("depth.flatten():", depth.flatten().shape, depth.flatten())
